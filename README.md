@@ -1,141 +1,128 @@
-# Quiz Application Backend (Java Spring Boot)
+Quiz Application Backend (Spring Boot)
 
-Welcome to the Quiz Application Backend project! This beginner-level Spring Boot project follows the MVC (Model-View-Controller) architecture, making it easy to incorporate into your Spring Boot projects. The backend includes user authentication and authorization features, along with quiz management functionalities such as creating, updating, and deleting quizzes.
+A secure and modular backend for quiz applications built with Java Spring Boot, following the MVC (Model-View-Controller) architecture. This project includes authentication, authorization, and quiz management functionalities, making it a great foundation for developing full-stack quiz platforms.
 
-## Features
+🚀 Features
 
-- **User Authentication and Authorization:** Utilizes JWT for secure user authentication and authorization.
-- **Quiz Management:** Allows users to create, update, and delete quizzes.
-- **MVC Architecture:** Organized into Model, View, and Controller components for better code structure and maintainability.
+✔ User Authentication & Authorization
+Secure login and role-based access control implemented using JWT.
 
-## Technologies and Frameworks Used
+✔ Quiz Management
+Create, update, fetch, and delete quizzes with RESTful APIs.
 
-- **Spring Boot:** Provides a powerful framework for building Java-based applications with ease.
-- **Spring Security:** Ensures secure authentication and authorization of users.
-- **MySQL (or any other database):** Utilized for data storage and management.
-- **JWT (JSON Web Tokens):** Enables secure authorization mechanisms for user authentication.
+✔ Question & Options Handling
+Add questions and multiple options associated with each quiz.
 
-## Installation
+✔ MVC Architecture
+Clean separation of Model, Controller, and Service layers for scalability and maintainability.
 
-1. **Configure Database Settings:**
-   - Set up your database and configure the connection settings in the `application.properties` file.
+🛠️ Tech Stack
+| Technology            | Purpose                              |
+| --------------------- | ------------------------------------ |
+| Spring Boot           | Backend framework                    |
+| Spring Security       | Securing APIs with role-based access |
+| JWT (JSON Web Token)  | Authentication & authorization       |
+| MySQL (or any SQL DB) | Persistent data storage              |
+| Maven                 | Dependency & project management      |
 
-2. **Build and Run the Application:**
-   - Build the application using Maven:
-     ```bash
-     mvn clean install
-     ```
-   - Run the application using Maven:
-     ```bash
-     mvn spring-boot:run
-     ```
-   - Alternatively, you can run the application using your preferred IDE by importing the project.
+⚙️ Installation & Setup
 
-## Contributing
+1️⃣ Configure Database Connection
+Update src/main/resources/application.properties:
 
-Contributions are welcome! If you have any ideas for improvements or find any issues, please feel free to submit a pull request.
+spring.datasource.url=jdbc:mysql://localhost:3306/quizdb
+spring.datasource.username=root
+spring.datasource.password=your_password
+spring.jpa.hibernate.ddl-auto=update
 
-# QuizApp API Documentation
+2️⃣ Build & Run the Application
 
-## Variables
-- BASE_URL: http://localhost:9000/
+mvn clean install
+mvn spring-boot:run
 
-## Authentication
-### Register
-- URL: {{BASE_URL}}auth/addNewUser
-- Method: POST
-- Body:
-```json
+
+➡ Server will run on:
+
+http://localhost:9000/
+
+📌 API Documentation
+🔑 Authentication
+➤ Register User
+POST {{BASE_URL}}auth/addNewUser
+
+
+Request Body:
+
 {
-    "name" : "Devansh",
-    "email" : "devanshtakkar@gmail.com",
-    "password" : "1234",
-    "contact" : "7015845944"
+  "name": "Devansh",
+  "email": "devansh@gmail.com",
+  "password": "1234",
+  "contact": "7015845944"
 }
-```
-## Profile
-### Get Profile
-- URL: {{BASE_URL}}api/profile
-- Method: GET
 
-## Quizzes
-### Add Quiz
-- URL: {{BASE_URL}}api/Quizzes
-- Method: POST
-- Body:
-```json
+👤 User Profile
+➤ Get Profile
+GET {{BASE_URL}}api/profile
+
+📝 Quizzes
+➤ Add Quiz
+POST {{BASE_URL}}api/Quizzes
+
+
+Request Body:
+
 {
-  "Title": "Science Quiz",
-  "Description": "Test your math skills",
-  "TimeLimit": "00:30:00"
+  "title": "Science Quiz",
+  "description": "Test your science knowledge",
+  "timeLimit": "00:30:00"
 }
-```
-### Fetch Quizzes
-- URL: {{BASE_URL}}api/Quizzes
-- Method: GET
 
-## Questions
-### Add Question
-- URL: {{BASE_URL}}api/Question
-- Method: POST
-- Body:
-```json
+➤ Get All Quizzes
+GET {{BASE_URL}}api/Quizzes
+
+❓ Questions
+➤ Add Question
+POST {{BASE_URL}}api/Question
+
+
+Request Body:
+
 {
-  "QuestionText": "Who is the best footballer in the world?",
-  "QuestionType": "Multiple Choice",
-  "quizzes": {
+  "questionText": "Who discovered gravity?",
+  "questionType": "Multiple Choice",
+  "quiz": {
     "quizID": 1
   }
 }
-```
-## Options
-### Add Options
-- URL: {{BASE_URL}}api/options
-- Method: POST
-- Body:
-```json
+
+🔘 Options
+➤ Add Option
+POST {{BASE_URL}}api/options
+
+
+Request Body:
+
 {
-    "OptionText": "Baber Azam",
-    "IsCorrect": false,
-    "Questions": {
-        "questionID": 4,
-        "questionText": "Who is the best player in the world?",
-        "questionType": "Multiple Choice",
-        "quizzes": {
-            "quizID": 1
-        },
-        "options": []
-    }
+  "optionText": "Isaac Newton",
+  "isCorrect": true,
+  "question": {
+    "questionID": 4
+  }
 }
-```
-## User Attempts
-### Add Attempt
-- URL: {{BASE_URL}}api/UserAttempt
-- Method: POST
-- Body:
-```json
+
+🧑‍🎓 User Attempts
+➤ Create Attempt
+POST {{BASE_URL}}api/UserAttempt
+
+
+Request Body:
+
 {
-  "quizzes": {
-    "description": "Test your math skills",
-    "quizID": 1,
-    "timeLimit": "00:30:00",
-    "title": "Math Quiz",
-    "questions": []
-  },
+  "quiz": { "quizID": 1 },
   "startTime": "2024-01-23T12:34:56",
-  "endTime": "",
   "score": 0
 }
-```
-## User Response
-### Record User Response
-- URL: {{BASE_URL}}api/response/
-- Method: POST
-- Body:
-```json
-{
-  "AttemptId" : 1,
-  "QuestionId" : 1,
-  "OptionId" : 2
-}
-```
+
+🗒 User Responses
+➤ Add Response
+POST {{BASE_URL}}api/response
